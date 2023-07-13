@@ -17,6 +17,7 @@
 **/
 /*=================BEGIN: Common Method =============================*/
 
+
 //List All data of a specific tables
 function listTableData($tablename, $orderbycol, $order, $limit)
 {
@@ -284,6 +285,21 @@ function loginAccess($user_login_data) {
 		return $row->total_allow_students;
 	}
 	
+	public function distributorsDetails() {
+		$data=array();
+		
+		$this->db->where("role='distributor' AND active='Y'");
+		$allData = $this->db->get($this->db->dbprefix("users"));
+		if($allData->num_rows() > 0)
+		{	
+			
+			foreach ($allData->result() as $row) {
+					$data[] = $row;
+				}
+			return $data;			  
+		}
+		return $data;	
+	}
 
 
 /*================== END: Student Listing ============================*/

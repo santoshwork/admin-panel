@@ -18,6 +18,9 @@ class Dashboard extends MY_Controller {
 		
 		$this->data['role'] = $this->session->userdata('role');
 		$this->data['recent_logins'] = $this->userdata->listTableData('login_details','id','DESC',10);
+		$distributor_id = $this->userdata->getDistributorId($this->session->userdata('role'), $this->session->userdata('usrid'));
+		$distributor_condition = ('userid ='.$distributor_id);
+
 		if ($this->session->userdata('role') !='admin') {
 			$this->data['total_batches'] = $this->userdata->countRecords('batches',"active= 'Y' AND username ='".$this->session->userdata('username')."'");
 		} else {
@@ -36,6 +39,13 @@ class Dashboard extends MY_Controller {
 		if ($this->session->userdata('role') =='distributor') {
 			$this->data['total_pending_batches'] = $this->userdata->countRecords('batches',"active= 'Y' AND userid =".$this->session->userdata('usrid')." AND id NOT IN(Select Batch_Id From apanel_student_details Where active ='Y')");
 		} 
+
+		if ($this->session->userdata('role') !='admin') {
+			$this->data['total_students'] = $this->userdata->countRecords('student_details',"active= 'Y' AND added_for_userid =".$distributor_id);
+		} else {
+			$this->data['total_students'] = $this->userdata->countRecords('student_details',"active= 'Y' OR active= 'N'");
+		}
+		$this->data['distributors_details'] = $this->userdata->distributorsDetails();
 		
 		$this->data['page'] = 'dashboard';		
         $this->load->view('layout/template_dashboard', $this->data);
