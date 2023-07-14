@@ -42,7 +42,7 @@ $protocol = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ) ? 'https' 
 //define("SITE_URL",$protocol."://172.19.4.193/");
 
 //Internet url configuration
-define("SITE_URL",$protocol."://localhost:81/admin-panel/");
+define("SITE_URL",$protocol."://demo.demomyprojects.com/");
 /*
 |--------------------------------------------------------------------------
 | Display Debug backtrace

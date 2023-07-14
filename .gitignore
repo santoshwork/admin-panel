@@ -1,3 +1,5 @@
 media/upload
 application/config/constants.php
 application/config/database.php
+application/config/constants.php
+application/config/database.php
