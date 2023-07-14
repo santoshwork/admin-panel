@@ -42,7 +42,6 @@
                         <select class="form-select" id="role" name="role"
                             aria-label="Floating label select">
                             <option selected>Select Role</option>
-                            <option value="admin">Admin</option>
                             <option value="distributor">Distributor</option>
                             <option value="operator">Operator</option>
                         </select>
