@@ -202,12 +202,10 @@ function loginAccess($user_login_data) {
             $this->db->like('Student_Name', $search);
 			$this->db->or_like('Batch_Name', $search);
         }
+		$this->db->where('active="Y"');
 		
         $this->db->order_by($order, $dir);
 		
-		if($this->session->userdata('role') == "distributor") {
-			$this->db->limit($this->session->userdata('total_allow_students'));
-		}
         $query = $this->db->get($this->db->dbprefix('student_details'));
         return $query->result();
     }
@@ -225,6 +223,7 @@ function loginAccess($user_login_data) {
             $this->db->like('Student_Name', $search);
 			$this->db->or_like('Batch_Name', $search);
         }
+		$this->db->where('active="Y"');
 		
 		if($this->session->userdata('role') == "distributor") {
 			$this->db->limit($this->session->userdata('total_allow_students'));
@@ -235,6 +234,12 @@ function loginAccess($user_login_data) {
     }
 
     public function count_all() {
+		if($this->session->userdata('role') =="operator") {
+			$this->db->where('added_by_userid', $this->session->userdata('usrid'));
+		} else if($this->session->userdata('role') =="distributor") {
+			$this->db->where('added_for_userid', $this->session->userdata('usrid'));
+		}
+		$this->db->where('active="Y"');
         $query = $this->db->get($this->db->dbprefix('student_details'));		
 		if($this->session->userdata('role') == "distributor") {
 			$this->db->limit($this->session->userdata('total_allow_students'));

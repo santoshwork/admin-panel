@@ -289,9 +289,9 @@ class Dashboard extends MY_Controller {
 		$distributor_id = $this->userdata->getDistributorId($this->session->userdata('role'), $this->session->userdata('usrid'));
 		$distributor_condition = ('userid ='.$distributor_id);
 		if($this->session->userdata('role') =="operator") {
-			$condition = ('added_by_userid ='.$this->session->userdata('usrid'));
+			$condition = ('active = "Y" AND added_by_userid ='.$this->session->userdata('usrid'));
 		} else if($this->session->userdata('role') =="distributor") {
-			$condition = ('added_for_userid ='.$this->session->userdata('usrid'));
+			$condition = ('active = "Y" AND added_for_userid ='.$this->session->userdata('usrid'));
 		}
 		$this->data['students'] = $this->userdata->listTableDataCondition($condition,'student_details');
 		if($this->session->userdata('role') =="admin") {
